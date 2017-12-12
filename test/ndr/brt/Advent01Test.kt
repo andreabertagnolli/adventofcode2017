@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test
 class Advent01Test {
 
     @Test
-    internal fun single_digit_always_returns_0() {
+    fun single_digit_always_returns_0() {
         assertEquals(0, captcha("3"))
     }
 
     @Test
-    internal fun two_equal_digits_returns_digit_multiply_two() {
-        assertEquals(15, captcha("555"))
+    fun two_equal_digits_returns_digit_multiply_two() {
+        assertEquals(10, captcha("55"))
     }
 
     @Test
@@ -26,12 +26,12 @@ class Advent01Test {
     }
 
     @Test
-    fun baubau() {
+    fun works_with_different_couple_of_digits() {
         assertEquals(3, captcha("1122"))
     }
 
     @Test
-    fun baubaufds() {
+    fun one_cool_case() {
         assertEquals(9, captcha("91212129"))
     }
 

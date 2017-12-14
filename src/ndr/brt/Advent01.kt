@@ -16,12 +16,7 @@ fun captchaPartOne(input: String): Int = when {
 fun captchaPartTwo(input: String): Int {
     val halfWay = input.length / 2
 
-    val associateIndex: (Int) -> Int = { it -> when {
-        it < halfWay -> it + halfWay
-        else -> it - halfWay }
-    }
-
-    return input.filterIndexed({ i, it -> it == input.get(associateIndex.invoke(i)) })
+    return input.filterIndexed({ i, it -> it == input.get((i + halfWay) % input.length) })
             .map { it.toString() }
             .map { it.toInt() }
             .sum()

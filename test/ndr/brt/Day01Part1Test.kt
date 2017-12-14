@@ -3,7 +3,7 @@ package ndr.brt
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class Advent01Part1Test {
+class Day01Part1Test {
 
     @Test
     fun single_digit_always_returns_0() {

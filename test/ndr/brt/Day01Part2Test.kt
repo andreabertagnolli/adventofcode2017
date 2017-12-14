@@ -3,7 +3,7 @@ package ndr.brt
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class Advent01Part2Test {
+class Day01Part2Test {
 
     @Test
     fun first_case() {

@@ -9,27 +9,21 @@ fun corruptionChecksum(input: String): Int = input.split("\n")
             })
             .sum()
 
-fun evenlyDivisibleChecksum(input: String): Int {
-
-    val calculateRow: (List<Int>) -> Int = { rowNumbers ->
-        rowNumbers.filter { high -> rowNumbers
-                .filter { it != high }
-                .filter { low -> high % low == 0 }
-                .isNotEmpty()
-        }.first().div(
-                rowNumbers.filter { low -> rowNumbers
-                        .filter { it != low }
-                        .filter { high -> high % low == 0 }
-                        .isNotEmpty()
-                }.first())
-    }
-
-    return input.split("\n")
+fun evenlyDivisibleChecksum(input: String): Int = input.split("\n")
             .map { row -> row.split(" ", "\t").map { it.toInt() } }
-            .map(calculateRow)
+            .map({ rowNumbers ->
+                rowNumbers.filter { high -> rowNumbers
+                        .filter { it != high }
+                        .filter { low -> high % low == 0 }
+                        .isNotEmpty()
+                }.first().div(
+                        rowNumbers.filter { low -> rowNumbers
+                                .filter { it != low }
+                                .filter { high -> high % low == 0 }
+                                .isNotEmpty()
+                        }.first())
+            })
             .sum()
-
-}
 
 class MaxMin(val min: Int, val max: Int) {
     fun difference(): Int = max - min

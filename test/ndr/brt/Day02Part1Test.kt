@@ -3,7 +3,7 @@ package ndr.brt
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class Day02Test {
+class Day02Part1Test {
 
     @Test
     internal fun first_row_checksum() {

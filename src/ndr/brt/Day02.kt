@@ -1,7 +1,6 @@
 package ndr.brt
 
-fun corruptionChecksum(input: String): Int {
-    return input.split("\n")
+fun corruptionChecksum(input: String): Int = input.split("\n")
             .map({ it.split("\t", " ")
                     .map { it.toInt() }
                     .map { MaxMin(it, it) }
@@ -9,11 +8,29 @@ fun corruptionChecksum(input: String): Int {
                     .difference()
             })
             .sum()
+
+fun evenlyDivisibleChecksum(input: String): Int {
+
+    val calculateRow: (List<Int>) -> Int = { rowNumbers ->
+        rowNumbers.filter { high -> rowNumbers
+                .filter { it != high }
+                .filter { low -> high % low == 0 }
+                .isNotEmpty()
+        }.first().div(
+                rowNumbers.filter { low -> rowNumbers
+                        .filter { it != low }
+                        .filter { high -> high % low == 0 }
+                        .isNotEmpty()
+                }.first())
+    }
+
+    return input.split("\n")
+            .map { row -> row.split(" ", "\t").map { it.toInt() } }
+            .map(calculateRow)
+            .sum()
+
 }
 
-
 class MaxMin(val min: Int, val max: Int) {
-
     fun difference(): Int = max - min
-
 }

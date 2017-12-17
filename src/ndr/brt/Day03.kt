@@ -8,15 +8,17 @@ import kotlin.math.sqrt
 class Day03 {
     fun spiralMemory(input: Int): Int {
 
-        //1° quadrato = 1^2, 2 quadrato = 3^2, 3° quadrato = 5^2
-        val distanceFromCenter = distanceFromCenter(input)
-
-        return Square(distanceFromCenter).centralNumbers()
+        return Square(distanceFromCenter(input)).centralNumbers()
                 .map { input - it }
                 .map { abs(it) }
-                .reduce { a, b -> min(a,b) } + distanceFromCenter
+                .reduce { a, b -> min(a,b) } + distanceFromCenter(input)
 
     }
+
+    fun distanceFromCenter(input: Int): Int {
+        return ((squareLength(input) + 1) / 2) -1
+    }
+
 
     fun squareLength(input: Int): Int {
         val ceil = ceil(sqrt(input.toDouble())).toInt()
@@ -24,11 +26,6 @@ class Day03 {
             ceil % 2 == 0 -> ceil + 1
             else -> ceil
         }
-    }
-
-
-    fun distanceFromCenter(input: Int): Int {
-        return ((squareLength(input) + 1) / 2) -1
     }
 
 }
@@ -42,7 +39,6 @@ class Square(val distanceFromCenter: Int) {
     }
 
     fun centralNumbers(): IntArray {
-
         return intArrayOf(firstCentralNumber(), firstCentralNumber() + (length() -1)*1, firstCentralNumber() + (length()-1)*2, firstCentralNumber() + (length()-1)*3)
     }
 

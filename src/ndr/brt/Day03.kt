@@ -6,40 +6,35 @@ import kotlin.math.min
 import kotlin.math.sqrt
 
 class Day03 {
+
     fun spiralMemory(input: Int): Int {
 
-        return Square(distanceFromCenter(input)).centralNumbers()
+        val square = Square(input)
+        return square.pivots()
                 .map { input - it }
                 .map { abs(it) }
-                .reduce { a, b -> min(a,b) } + distanceFromCenter(input)
+                .reduce { a, b -> min(a,b) } + square.distanceFromCenter
 
     }
+    
+}
 
-    fun distanceFromCenter(input: Int): Int {
-        return ((squareLength(input) + 1) / 2) -1
+class Square(input: Int) {
+
+    val distanceFromCenter: Int = ((squareLength(input) + 1) / 2) - 1
+    private val size: Int = (distanceFromCenter + 1) * 2 - 1
+    private val firstPivot: Int = (size - 2)*(size - 2) + distanceFromCenter
+
+    fun pivots(): IntArray {
+        return (0..3).map { firstPivot + (size - 1) * it }.toIntArray()
     }
 
-
-    fun squareLength(input: Int): Int {
+    private fun squareLength(input: Int): Int {
         val ceil = ceil(sqrt(input.toDouble())).toInt()
         return when {
             ceil % 2 == 0 -> ceil + 1
             else -> ceil
         }
-    }
-
-}
-
-class Square(val distanceFromCenter: Int) {
-
-    fun length(): Int = (distanceFromCenter + 1)*2 - 1
-
-    fun firstCentralNumber(): Int {
-        return (length() - 2)*(length() - 2) + distanceFromCenter
-    }
-
-    fun centralNumbers(): IntArray {
-        return intArrayOf(firstCentralNumber(), firstCentralNumber() + (length() -1)*1, firstCentralNumber() + (length()-1)*2, firstCentralNumber() + (length()-1)*3)
     }
 
 }

@@ -8,8 +8,6 @@ class Day03Part1Test {
 
     val day = Day03()
 
-    //1° quadrato = 1^2, 2 quadrato = 3^2, 3° quadrato = 5^2
-
     @Test
     internal fun square_1() {
         assertEquals(0, day.spiralMemory(1));
@@ -49,17 +47,17 @@ class Day03Part1Test {
 
         @Test
         internal fun square_0() {
-            assertTrue(intArrayOf(1, 1, 1, 1) contentEquals  Square(0).pivots())
+            assertTrue(intArrayOf(1, 1, 1, 1) contentEquals  SquarePart1(0).pivots())
         }
 
         @Test
         internal fun square_1() {
-            assertTrue(intArrayOf(2, 4, 6, 8) contentEquals Square(1).pivots())
+            assertTrue(intArrayOf(2, 4, 6, 8) contentEquals SquarePart1(1).pivots())
         }
 
         @Test
         internal fun square_2() {
-            assertTrue(intArrayOf(11, 15, 19, 23) contentEquals Square(2).pivots())
+            assertTrue(intArrayOf(11, 15, 19, 23) contentEquals SquarePart1(2).pivots())
         }
 
     }
@@ -67,39 +65,39 @@ class Day03Part1Test {
     internal class FirstCentralNumber {
         @Test
         internal fun first_central_number_0() {
-            assertEquals(1, Square(0).firstPivot)
+            assertEquals(1, SquarePart1(0).firstPivot)
         }
 
         @Test
         internal fun first_central_number_1() {
-            assertEquals(2, Square(1).firstPivot)
+            assertEquals(2, SquarePart1(1).firstPivot)
         }
 
         @Test
         internal fun first_central_number_2() {
-            assertEquals(11, Square(2).firstPivot)
+            assertEquals(11, SquarePart1(2).firstPivot)
         }
 
         @Test
         internal fun first_central_number_4() {
-            assertEquals(53, Square(4).firstPivot)
+            assertEquals(53, SquarePart1(4).firstPivot)
         }
     }
 
     internal class SquareLength {
         @Test
         internal fun length_square_0() {
-            assertEquals(1, Square(0).size)
+            assertEquals(1, SquarePart1(0).size)
         }
 
         @Test
         internal fun length_square_1() {
-            assertEquals(3, Square(1).size)
+            assertEquals(3, SquarePart1(1).size)
         }
 
         @Test
         internal fun length_square_3() {
-            assertEquals(7, Square(3).size)
+            assertEquals(7, SquarePart1(3).size)
         }
 
     }

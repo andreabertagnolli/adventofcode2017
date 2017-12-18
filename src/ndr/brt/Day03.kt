@@ -22,8 +22,8 @@ class Day03 {
 class Square(input: Int) {
 
     val distanceFromCenter: Int = ((squareLength(input) + 1) / 2) - 1
-    private val size: Int = (distanceFromCenter + 1) * 2 - 1
-    private val firstPivot: Int = (size - 2)*(size - 2) + distanceFromCenter
+    val size: Int = (distanceFromCenter + 1) * 2 - 1
+    val firstPivot: Int = (size - 2)*(size - 2) + distanceFromCenter
 
     fun pivots(): IntArray {
         return (0..3).map { firstPivot + (size - 1) * it }.toIntArray()

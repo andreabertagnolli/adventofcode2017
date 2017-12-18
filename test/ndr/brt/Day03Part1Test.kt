@@ -67,39 +67,39 @@ class Day03Part1Test {
     internal class FirstCentralNumber {
         @Test
         internal fun first_central_number_0() {
-            assertEquals(1, Square(0).firstPivot())
+            assertEquals(1, Square(0).firstPivot)
         }
 
         @Test
         internal fun first_central_number_1() {
-            assertEquals(2, Square(1).firstPivot())
+            assertEquals(2, Square(1).firstPivot)
         }
 
         @Test
         internal fun first_central_number_2() {
-            assertEquals(11, Square(2).firstPivot())
+            assertEquals(11, Square(2).firstPivot)
         }
 
         @Test
         internal fun first_central_number_4() {
-            assertEquals(53, Square(4).firstPivot())
+            assertEquals(53, Square(4).firstPivot)
         }
     }
 
     internal class SquareLength {
         @Test
         internal fun length_square_0() {
-            assertEquals(1, Square(0).size())
+            assertEquals(1, Square(0).size)
         }
 
         @Test
         internal fun length_square_1() {
-            assertEquals(3, Square(1).size())
+            assertEquals(3, Square(1).size)
         }
 
         @Test
         internal fun length_square_3() {
-            assertEquals(7, Square(3).size())
+            assertEquals(7, Square(3).size)
         }
 
     }

@@ -27,7 +27,7 @@ class Day04Part1Test {
 
     @Test
     internal fun how_many_valid() {
-        val validPassphrases = Files.readAllLines(Paths.get("resources/day04part1")).filter { it -> day.noDuplicateWords(it) }.count()
+        val validPassphrases = Files.readAllLines(Paths.get("resources/day04")).filter { it -> day.noDuplicateWords(it) }.count()
 
         println(validPassphrases)
     }

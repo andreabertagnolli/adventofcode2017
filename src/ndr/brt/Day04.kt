@@ -5,4 +5,11 @@ class Day04 {
         return input.split(" ").distinct().count() == input.split(" ").count()
     }
 
+    fun noDuplicateAnagrams(input: String): Boolean {
+        return input.split(" ")
+                .map { String(it.toCharArray().sortedArray()) }
+                .distinct()
+                .count() == input.split(" ").count()
+    }
+
 }

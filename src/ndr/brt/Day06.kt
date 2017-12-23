@@ -22,7 +22,22 @@ class Day06 {
         return steps
     }
 
+    fun cyclesInInfiniteLoop(input: IntArray): Int {
+        val knownSituations: MutableSet<Memory> = mutableSetOf(
+                Memory(input.mapIndexed { index, it -> Block(index, it) })
+        )
+
+        while (true) {
+            val newSituation = knownSituations.last().reallocate()
+            if (!knownSituations.add(newSituation)) {
+                return knownSituations.size - knownSituations.indexOf(newSituation)
+            }
+        }
+
+    }
+
     class Block(val index: Int, var value: Int) {
+
         fun clone() = Block(index, value)
 
         fun increase() = Block(index, value + 1)
@@ -48,8 +63,8 @@ class Day06 {
         }
 
     }
-
     class Memory(var blocks: List<Block>) {
+
         fun clone(): Memory {
             return Memory(blocks.map { it.clone() })
         }
@@ -57,8 +72,8 @@ class Day06 {
         override fun toString(): String {
             return blocks.joinToString(",", "[", "]")
         }
-
         fun maxValue(): Int = blocks.maxBy { it.value }!!.value
+
         fun maxIndex(): Int = blocks.maxBy { it.value }!!.index
 
         fun setMemory(index: Int, value: Int) {
@@ -89,6 +104,7 @@ class Day06 {
             return blocks.hashCode()
         }
 
+
         fun reallocate(): Memory {
             var reallocate = clone()
 
@@ -102,7 +118,6 @@ class Day06 {
             }
             return reallocate
         }
-
 
     }
 }

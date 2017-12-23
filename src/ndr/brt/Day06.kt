@@ -11,18 +11,10 @@ class Day06 {
         var steps = 0
 
         while (!duplicated) {
-            var actual = knownSituations.last().clone()
 
-            val maxIndex = actual.maxIndex()
-            val maxValue = actual.maxValue()
-
-            actual.setMemory(maxIndex, 0)
-
-            (1..maxValue).forEach {
-                actual = actual.increase((maxIndex + it) % actual.size())
-            }
-
-            duplicated = !knownSituations.add(actual)
+            duplicated = !knownSituations.add(
+                knownSituations.last().reallocate()
+            )
             steps++
 
         }
@@ -95,6 +87,20 @@ class Day06 {
 
         override fun hashCode(): Int {
             return blocks.hashCode()
+        }
+
+        fun reallocate(): Memory {
+            var reallocate = clone()
+
+            val maxIndex = reallocate.maxIndex()
+            val maxValue = reallocate.maxValue()
+
+            reallocate.setMemory(maxIndex, 0)
+
+            (1..maxValue).forEach {
+                reallocate = reallocate.increase((maxIndex + it) % size())
+            }
+            return reallocate
         }
 
 

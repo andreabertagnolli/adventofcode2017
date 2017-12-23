@@ -7,9 +7,38 @@ class Day07 {
         return programs.filter { !aboves.contains(it.name) }.first().name
     }
 
+    fun expectedWeightToBalanceTower(input: List<String>): Int {
+
+        val programs = input.map { Program(it) }
+
+        val toBeBalanced = programs.filter { it.above.isNotEmpty() }.map {
+            programs.filter { that -> it.above.contains(that.name) }.map { subProgram ->
+                Sum(subProgram, subProgram.weight + programs.filter { that -> subProgram.above.contains(that.name) }.map { that -> that.weight }.sum())
+            }
+        }.filter { it.map { that -> that.sum }.toSet().size > 1 }.first()
+
+        println(toBeBalanced)
+
+        val balancedValue = toBeBalanced.map { it.sum }.groupBy { it }.entries.filter { it -> it.value.size>1 }.first().key
+
+        val unbalanced = toBeBalanced.filter { it.sum != balancedValue }.first()
+        println(toBeBalanced)
+
+
+        // 251 + x = 243          68 + x
+        return balancedValue - unbalanced.sum + unbalanced.program.weight
+    }
+
+    class Sum(val program:Program, val sum:Int) {
+        override fun toString(): String {
+            return "Sum(program=${program.name}:${program.weight}, sum=$sum)"
+        }
+    }
+
     class Program(info: String) {
         val name: String
-        private val weight: Int
+        val weight: Int
+
         val above: List<String>
 
         override fun toString(): String {
@@ -27,7 +56,6 @@ class Day07 {
                 this.above = listOf()
             }
         }
-
 
     }
 

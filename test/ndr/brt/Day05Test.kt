@@ -25,6 +25,7 @@ class Day05Test {
 
         println(day.stepsToExitFrom(validPassphrases.toIntArray()))
     }
+
     @Test
     internal fun valid_passphrases_part2() {
         val validPassphrases = Files.readAllLines(Paths.get("resources/day05")).map{ it.toInt() }

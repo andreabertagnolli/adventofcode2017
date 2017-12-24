@@ -29,13 +29,13 @@ class Day07Test {
 
     @Test
     internal fun part1() {
-        assertEquals("tknk", day.bottomProgram(testInput.split("\n")))
+        assertEquals("tknk", day.bottomProgram(testInput.split("\n")).name)
     }
 
     @Test
     internal fun part1_solution() {
         val lines = readAllLines(Paths.get("resources/day07"))
-        assertEquals("vvsvez", day.bottomProgram(lines))
+        assertEquals("vvsvez", day.bottomProgram(lines).name)
     }
 
     @Test
@@ -46,6 +46,6 @@ class Day07Test {
     @Test
     internal fun solution_part2() {
         val lines = readAllLines(Paths.get("resources/day07"))
-        assertEquals(60, day.expectedWeightToBalanceTower(lines))
+        assertEquals(362, day.expectedWeightToBalanceTower(lines))
     }
 }

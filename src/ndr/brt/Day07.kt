@@ -1,48 +1,37 @@
 package ndr.brt
 
 class Day07 {
-    fun bottomProgram(input: List<String>): String {
+    fun bottomProgram(input: List<String>): Program {
         val programs = input.map { Program(it) }
         val aboves = programs.map { it.above }.flatMap { it }
-        return programs.filter { !aboves.contains(it.name) }.first().name
+        return programs.filter { !aboves.contains(it.name) }.first()
     }
 
     fun expectedWeightToBalanceTower(input: List<String>): Int {
-
         val programs = input.map { Program(it) }
 
-        val toBeBalanced = programs.filter { it.above.isNotEmpty() }.map {
-            programs.filter { that -> it.above.contains(that.name) }.map { subProgram ->
-                Sum(subProgram, subProgram.weight + programs.filter { that -> subProgram.above.contains(that.name) }.map { that -> that.weight }.sum())
-            }
-        }.filter { it.map { that -> that.sum }.toSet().size > 1 }.first()
+        programs.forEach { it.childs(programs.filter { that -> it.above.contains(that.name) }) }
 
-        println(toBeBalanced)
+        val toBeBalanced = programs.find { it.childs.map { that -> that.sum() }.toSet().size > 1 }!!
 
-        val balancedValue = toBeBalanced.map { it.sum }.groupBy { it }.entries.filter { it -> it.value.size>1 }.first().key
+        val balancedValue = toBeBalanced.childs.map { it.sum() }.groupBy { it }
+                .entries.filter { it -> it.value.size > 1 }
+                .first().key
 
-        val unbalanced = toBeBalanced.filter { it.sum != balancedValue }.first()
-        println(toBeBalanced)
+        val unbalanced = toBeBalanced.childs
+                .filter { it.sum() != balancedValue }.first()
 
-
-        // 251 + x = 243          68 + x
-        return balancedValue - unbalanced.sum + unbalanced.program.weight
-    }
-
-    class Sum(val program:Program, val sum:Int) {
-        override fun toString(): String {
-            return "Sum(program=${program.name}:${program.weight}, sum=$sum)"
-        }
+        return balancedValue - unbalanced.sum() + unbalanced.weight
     }
 
     class Program(info: String) {
         val name: String
         val weight: Int
-
+        var childs: MutableSet<Program> = mutableSetOf()
         val above: List<String>
 
         override fun toString(): String {
-            return "Program(name='$name', weight=$weight, above=$above)"
+            return "Program(name='$name', weight=$weight, childs=$childs)"
         }
 
         init {
@@ -55,6 +44,14 @@ class Day07 {
             else {
                 this.above = listOf()
             }
+        }
+
+        fun childs(childs: List<Program>) {
+            this.childs.addAll(childs)
+        }
+
+        fun sum(): Int {
+            return weight + childs.map { it.sum() }.sum()
         }
 
     }

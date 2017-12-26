@@ -10,8 +10,19 @@ class Day08 {
         return register.max()
     }
 
+    fun largestValueEver(instructions: List<String>): Int {
+        val register = Register()
+
+        instructions.map { Instruction(it) }
+                .map { register.apply(it) }
+
+        return register.highest
+    }
+
     class Register {
+
         private val register = mutableMapOf<String, Int>()
+        var highest = 0
 
         fun apply(instruction: Instruction) {
             if (test(instruction.condition)) {
@@ -24,6 +35,8 @@ class Day08 {
                 }
 
                 register.put(instruction.variable, next)
+
+                if (next > highest) highest = next
             }
         }
 
@@ -34,16 +47,16 @@ class Day08 {
         fun test(condition: Condition): Boolean {
             return condition.test(register.getOrDefault(condition.variable, 0))
         }
-
         override fun toString(): String {
             return register.map { e -> "%s -> %s".format(e.key, e.value) }.joinToString { it }
         }
-    }
 
+    }
     class Instruction(definition: String) {
         val variable: String
         val operation: String
         val quantity: Int
+
         val condition: Condition
 
         init {
@@ -53,13 +66,13 @@ class Day08 {
             this.quantity = parts[2].toInt()
             this.condition = Condition(parts[4], parts[5], parts[6].toInt())
         }
-
         override fun toString(): String {
             return "%s %s %s".format(variable, operation, quantity)
         }
-    }
 
+    }
     class Condition(val variable: String, val operator: String, val quantity: Int) {
+
         fun test(value: Int): Boolean = when(operator) {
                 ">" -> value > quantity
                 ">=" -> value >= quantity
@@ -69,10 +82,10 @@ class Day08 {
                 "!=" -> value != quantity
                 else -> throw RuntimeException()
         }
-
         override fun toString(): String {
             return "Is %s %s %s?".format(variable, operator, quantity)
         }
+
     }
 
 }

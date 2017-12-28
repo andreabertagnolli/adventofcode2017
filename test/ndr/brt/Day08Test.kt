@@ -39,6 +39,6 @@ class Day08Test {
     internal fun part2_solution() {
         val lines = Files.readAllLines(Paths.get("resources/day08"))
 
-        assertEquals(5215, day.largestValueEver(lines));
+        assertEquals(6419, day.largestValueEver(lines));
     }
 }
